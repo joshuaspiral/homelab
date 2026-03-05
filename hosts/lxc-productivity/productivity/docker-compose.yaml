@@ -1,0 +1,88 @@
+networks:
+  productivity:
+    driver: bridge
+
+services:
+  paperless-ngx:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    container_name: paperless-ngx
+    restart: unless-stopped
+    networks:
+      - productivity
+    ports:
+      - 8000:8000
+    volumes:
+      - ./paperless-ngx/data:/usr/src/paperless/data
+      - /mnt/documents/consume:/usr/src/paperless/consume   # adf scanner drops files here
+      - /mnt/documents/export:/usr/src/paperless/export
+      - /mnt/documents/media:/usr/src/paperless/media       # processed documents live here
+    env_file:
+      - .env
+    environment:
+      - PAPERLESS_REDIS=redis://paperless-redis:6379
+      - PAPERLESS_DBHOST=paperless-postgres
+      - PAPERLESS_DBNAME=${PAPERLESS_DBNAME}
+      - PAPERLESS_DBUSER=${PAPERLESS_DBUSER}
+      - PAPERLESS_DBPASS=${PAPERLESS_DBPASS}
+      - PAPERLESS_SECRET_KEY=${PAPERLESS_SECRET_KEY}
+      - PAPERLESS_ADMIN_USER=${PAPERLESS_ADMIN_USER}
+      - PAPERLESS_ADMIN_PASSWORD=${PAPERLESS_ADMIN_PASSWORD}
+      - PAPERLESS_URL=https://paperless.joshuaspiral.xyz
+      - PAPERLESS_OCR_LANGUAGE=eng
+      - PAPERLESS_OCR_MODE=skip_noarchive  # don't re-OCR docs that already have text layer
+      - PAPERLESS_CONSUMER_POLLING=60       # check consume folder every 60s
+      - TZ=America/Toronto
+    depends_on:
+      - paperless-redis
+      - paperless-postgres
+
+  paperless-redis:
+    image: redis:7-alpine
+    container_name: paperless-redis
+    restart: unless-stopped
+    networks:
+      - productivity
+
+  paperless-postgres:
+    image: postgres:15-alpine
+    container_name: paperless-postgres
+    restart: unless-stopped
+    networks:
+      - productivity
+    volumes:
+      - ./paperless-ngx/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${PAPERLESS_DBNAME}
+      - POSTGRES_USER=${PAPERLESS_DBUSER}
+      - POSTGRES_PASSWORD=${PAPERLESS_DBPASS}
+
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    networks:
+      - productivity
+    ports:
+      - 8080:80
+    volumes:
+      - ./vaultwarden/data:/data
+    environment:
+      - DOMAIN=https://vault.joshuaspiral.xyz
+      - SIGNUPS_ALLOWED=false      # disable after creating account
+      - ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}
+      - TZ=America/Toronto
+
+  couchdb:
+    # Obsidian LiveSync backend
+    image: couchdb:3
+    container_name: couchdb
+    restart: unless-stopped
+    networks:
+      - productivity
+    ports:
+      - 5984:5984
+    volumes:
+      - ./obsidian-livesync/data:/opt/couchdb/data
+    environment:
+      - COUCHDB_USER=${COUCHDB_USER}
+      - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}

@@ -1,0 +1,142 @@
+networks:
+  media:
+    driver: bridge
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - 8096:8096
+    volumes:
+      - ./jellyfin/config:/config
+      - ./jellyfin/cache:/cache
+      - /mnt/media:/media:ro        # read-only for jellyfin
+      - /mnt/music:/music:ro
+    devices:
+      - /dev/dri:/dev/dri           # iGPU passthrough for QuickSync transcoding
+    environment:
+      - TZ=America/Toronto
+
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - 4533:4533
+    volumes:
+      - ./navidrome/data:/data
+      - /mnt/music:/music:ro        # same music mount as jellyfin, read-only
+    environment:
+      - TZ=America/Toronto
+      - ND_SCANSCHEDULE=@every 1h   # rescan library every hour
+      - ND_LOGLEVEL=info
+      - ND_SESSIONTIMEOUT=24h
+      - ND_BASEURL=
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - 8080:8080   # web UI
+      - 6881:6881   # torrent port TCP
+      - 6881:6881/udp
+    volumes:
+      - ./qbitorrent/config:/config
+      - /mnt/downloads:/downloads   # staging area: hardlinks to /mnt/media after import
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+      - WEBUI_PORT=8080
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - 9696:9696
+    volumes:
+      - ./prowlarr/config:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - 8989:8989
+    volumes:
+      - ./sonarr/config:/config
+      - /mnt/media:/media           # needs write access for hardlinks
+      - /mnt/downloads:/downloads   # same mount as qbittorrent: enables hardlinks
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - 7878:7878
+    volumes:
+      - ./radarr/config:/config
+      - /mnt/media:/media
+      - /mnt/downloads:/downloads
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - 8686:8686
+    volumes:
+      - ./lidarr/config:/config
+      - /mnt/music:/music
+      - /mnt/downloads:/downloads
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+
+  radarr:
+    image: lscr.io/linuxserver/readarr:develop
+    container_name: readarr
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - 8787:8787
+    volumes:
+      - ./readarr/config:/config
+      - /mnt/media/books:/books
+      - /mnt/downloads:/downloads
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
