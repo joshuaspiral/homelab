@@ -16,6 +16,7 @@ services:
       - /mnt/documents/consume:/usr/src/paperless/consume   # adf scanner drops files here
       - /mnt/documents/export:/usr/src/paperless/export
       - /mnt/documents/media:/usr/src/paperless/media       # processed documents live here
+      - ./scripts:/scripts
     env_file:
       - .env
     environment:
@@ -31,6 +32,10 @@ services:
       - PAPERLESS_OCR_LANGUAGE=eng
       - PAPERLESS_OCR_MODE=skip_noarchive  # don't re-OCR docs that already have text layer
       - PAPERLESS_CONSUMER_POLLING=60       # check consume folder every 60s
+      - PAPERLESS_POST_CONSUME_SCRIPT=/scripts/ollama_ocr.py
+      - OLLAMA_API_URL=http://10.0.0.20:11434/api/generate # hyperion ip
+      - PAPERLESS_API_URL=http://localhost:8000/api/documents/
+      - PAPERLESS_API_TOKEN=${PAPERLESS_API_TOKEN}
       - TZ=America/Toronto
     depends_on:
       - paperless-redis
