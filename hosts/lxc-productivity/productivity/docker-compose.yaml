@@ -91,3 +91,15 @@ services:
     environment:
       - COUCHDB_USER=${COUCHDB_USER}
       - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
+
+    baikal:
+    image: ckulka/baikal:nginx
+    container_name: baikal
+    restart: unless-stopped
+    networks:
+      - productivity
+    ports:
+      - 8008:80
+    volumes:
+      - ./baikal/config:/var/www/baikal/config
+      - ./baikal/Specific:/var/www/baikal/Specific
