@@ -32,3 +32,14 @@ services:
       - HOMEPAGE_VAR_PAPERLESS_API_KEY=${HOMEPAGE_VAR_PAPERLESS_API_KEY}
       - HOMEPAGE_VAR_QBITTORRENT_PASSWORD=${HOMEPAGE_VAR_QBITTORRENT_PASSWORD}
       - HOMEPAGE_VAR_UPTIME_KUMA_URL=${HOMEPAGE_VAR_UPTIME_KUMA_URL}
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    restart: unless-stopped
+    networks:
+      - infra
+    ports:
+      - 3001:3001
+    volumes:
+      - ./uptime-kuma:/app/data
