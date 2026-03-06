@@ -92,7 +92,7 @@ services:
       - COUCHDB_USER=${COUCHDB_USER}
       - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
 
-    baikal:
+  baikal:
     image: ckulka/baikal:nginx
     container_name: baikal
     restart: unless-stopped
@@ -103,3 +103,14 @@ services:
     volumes:
       - ./baikal/config:/var/www/baikal/config
       - ./baikal/Specific:/var/www/baikal/Specific
+
+  actual-budget:
+    image: actualbudget/actual-server:latest
+    container_name: actual-budget
+    restart: unless-stopped
+    networks:
+      - productivity
+    ports:
+      - 5006:5006
+    volumes:
+      - ./actual-budget:/data
