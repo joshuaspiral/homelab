@@ -157,3 +157,14 @@ services:
       - PGID=1000
       - TZ=America/Toronto
       - WEBUI_PORT=8080
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - 8191:8191
+    environment:
+      - TZ=America/Toronto
