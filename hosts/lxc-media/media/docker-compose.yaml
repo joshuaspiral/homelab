@@ -124,23 +124,6 @@ services:
       - PGID=1000
       - TZ=America/Toronto
 
-  readarr:
-    image: lscr.io/linuxserver/readarr:nightly
-    container_name: readarr
-    restart: unless-stopped
-    networks:
-      - media
-    ports:
-      - 8787:8787
-    volumes:
-      - ./readarr/config:/config
-      - /mnt/media/books:/books
-      - /mnt/downloads:/downloads
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Toronto
-
   slskd:
     image: slskd/slskd:latest
     container_name: slskd
