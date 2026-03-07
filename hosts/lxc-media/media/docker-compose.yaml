@@ -124,7 +124,7 @@ services:
       - PGID=1000
       - TZ=America/Toronto
 
-  readarr:
+readarr:
     image: lscr.io/linuxserver/readarr:develop
     container_name: readarr
     restart: unless-stopped
@@ -140,3 +140,21 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Toronto
+
+  slskd:
+    image: slskd/slskd:latest
+    container_name: slskd
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - 5030:5030
+      - 2234:2234
+    volumes:
+      - ./slskd/config:/app/config
+      - /mnt/downloads:/app/downloads
+      - /mnt/music:/app/music
+    environment:
+      - SLSKD_REMOTE_CONFIGURATION=true
+      - SLSKD_SLSK_USERNAME=
+      - SLSKD_SLSK_PASSWORD=${SLSKD_PASSWORD}
