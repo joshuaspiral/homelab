@@ -1,0 +1,101 @@
+- Infrastructure:
+    - Proxmox:
+        href: https://10.0.0.10:8006
+        description: Hypervisor
+        icon: proxmox.svg
+    - Uptime Kuma:
+        href: https://status.joshuaspiral.xyz
+        description: Service monitoring
+        icon: uptime-kuma.svg
+        widget:
+          type: uptimekuma
+          url: http://10.0.0.101:3001
+          slug: homelab
+    - Hyperion:
+        href: http://10.0.0.20:11434
+        description: GPU server
+        icon: nvidia.svg
+
+- Productivity:
+    - Paperless:
+        href: https://paperless.joshuaspiral.xyz
+        description: Document management
+        icon: paperless-ngx.svg
+        widget:
+          type: paperlessngx
+          url: http://10.0.0.102:8000
+          key: {{HOMEPAGE_VAR_PAPERLESS_API_KEY}}
+    - Vaultwarden:
+        href: https://vault.joshuaspiral.xyz
+        description: Password manager
+        icon: vaultwarden.svg
+    - Baikal:
+        href: https://dav.joshuaspiral.xyz
+        description: CalDAV/CardDAV
+        icon: caldav.svg
+    - Actual Budget:
+        href: https://money.joshuaspiral.xyz
+        description: Personal finance
+        icon: actual-budget.svg
+
+- Photos & Media:
+    - Immich:
+        href: https://immich.joshuaspiral.xyz
+        description: Photo library
+        icon: immich.svg
+        widget:
+          type: immich
+          url: http://10.0.0.104:2283
+          key: {{HOMEPAGE_VAR_IMMICH_API_KEY}}
+          version: 2
+    - Jellyfin:
+        href: https://jellyfin.joshuaspiral.xyz
+        description: Media server
+        icon: jellyfin.svg
+        widget:
+          type: jellyfin
+          url: http://10.0.0.105:8096
+          key: {{HOMEPAGE_VAR_JELLYFIN_API_KEY}}
+    - Navidrome:
+        href: https://music.joshuaspiral.xyz
+        description: Music server
+        icon: navidrome.svg
+        widget:
+          type: navidrome
+          url: http://10.0.0.105:4533
+          user: {{HOMEPAGE_VAR_NAVIDROME_USER}}
+          token: {{HOMEPAGE_VAR_NAVIDROME_TOKEN}}
+          salt: {{HOMEPAGE_VAR_NAVIDROME_SALT}}
+
+- Downloads:
+    - Radarr:
+        href: https://radarr.joshuaspiral.xyz
+        description: Movies
+        icon: radarr.svg
+        widget:
+          type: radarr
+          url: http://10.0.0.105:7878
+          key: {{HOMEPAGE_VAR_RADARR_API_KEY}}
+    - Sonarr:
+        href: https://sonarr.joshuaspiral.xyz
+        description: TV Shows
+        icon: sonarr.svg
+        widget:
+          type: sonarr
+          url: http://10.0.0.105:8989
+          key: {{HOMEPAGE_VAR_SONARR_API_KEY}}
+    - qBittorrent:
+        href: http://10.0.0.105:8080
+        description: Torrent client
+        icon: qbittorrent.svg
+        widget:
+          type: qbittorrent
+          url: http://10.0.0.105:8080
+          username: {{HOMEPAGE_VAR_QBIT_USER}}
+          password: {{HOMEPAGE_VAR_QBIT_PASS}}
+
+- Storage:
+    - CouchDB:
+        href: https://couchdb.joshuaspiral.xyz
+        description: Obsidian LiveSync
+        icon: couchdb.svg

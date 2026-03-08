@@ -1,0 +1,15 @@
+- resources:
+    cpu: true
+    memory: true
+    disk: /
+
+- search:
+    provider: google
+    target: _blank
+
+- glances:
+    url: http://10.0.0.101:61208
+    cpu: true
+    mem: true
+    disk: /
+    label: theseus

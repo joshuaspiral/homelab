@@ -1,0 +1,54 @@
+- Homelab:
+    - Proxmox:
+        - abbr: PVE
+          href: https://10.0.0.10:8006
+    - Cloudflare:
+        - abbr: CF
+          href: https://dash.cloudflare.com
+    - Tailscale:
+        - abbr: TS
+          href: https://login.tailscale.com/admin
+
+- Dev:
+    - GitHub:
+        - abbr: GH
+          href: https://github.com/joshuaspiral
+    - Homelab Repo:
+        - abbr: HL
+          href: https://github.com/joshuaspiral/homelab
+    - SourceHut:
+        - abbr: SH
+          href: https://sr.ht
+    - Codeberg:
+        - abbr: CB
+          href: https://codeberg.org
+
+- Fediverse:
+    - Mastodon:
+        - abbr: MT
+          href: https://mastodon.social
+    - Lemmy:
+        - abbr: LM
+          href: https://lemmy.world
+    - Pixelfed:
+        - abbr: PF
+          href: https://pixelfed.social
+
+- Open Source:
+    - HackerNews:
+        - abbr: HN
+          href: https://news.ycombinator.com
+    - Lobsters:
+        - abbr: LB
+          href: https://lobste.rs
+    - OpenStreetMap:
+        - abbr: OSM
+          href: https://openstreetmap.org
+
+- Quick Links:
+    - YouTube:
+        - abbr: YT
+          href: https://youtube.com
+    - Reddit:
+        - abbr: RE
+          href: https://reddit.com
