@@ -1,0 +1,5 @@
+#!/bin/bash
+for ct in 101 102 103 104 105 106; do
+  echo "==> CT $ct"
+  pct exec $ct -- bash -c "cd /opt/homelab && git pull" 2>/dev/null
+done
