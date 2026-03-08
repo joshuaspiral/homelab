@@ -1,4 +1,39 @@
+# environment files
 .env
 **/.env
 !*.env.example
-!**/env.example
+!**/*.env.example
+
+# runtime data - productivity
+hosts/lxc-productivity/productivity/paperless-ngx/data/
+hosts/lxc-productivity/productivity/paperless-ngx/postgres/
+hosts/lxc-productivity/productivity/vaultwarden/data/
+hosts/lxc-productivity/productivity/obsidian-livesync/data/
+hosts/lxc-productivity/productivity/actual-budget/
+hosts/lxc-productivity/productivity/baikal/
+hosts/lxc-productivity/productivity/couchdb/
+
+# runtime data - media
+hosts/lxc-media/media/jellyfin/
+hosts/lxc-media/media/navidrome/
+hosts/lxc-media/media/lidarr/
+hosts/lxc-media/media/radarr/
+hosts/lxc-media/media/sonarr/
+hosts/lxc-media/media/prowlarr/
+hosts/lxc-media/media/slskd/
+hosts/lxc-media/media/qbitorrent/
+hosts/lxc-media/media/flaresolverr/
+
+# runtime data - photos
+hosts/lxc-photos/photos/immich/
+
+# runtime data - infra
+hosts/lxc-infra/infra/uptime-kuma/
+
+# logs
+*.log
+*.log.*
+
+# OS
+.DS_Store
+Thumbs.db
