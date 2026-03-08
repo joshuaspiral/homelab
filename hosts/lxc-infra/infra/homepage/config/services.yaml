@@ -4,7 +4,7 @@
         description: Hypervisor
         icon: proxmox.svg
     - Uptime Kuma:
-      href: https://status.joshuaspiral.xyz/status/homelab
+        href: https://status.joshuaspiral.xyz/status/homelab
         description: Service monitoring
         icon: uptime-kuma.svg
         widget:

@@ -2,14 +2,24 @@
     cpu: true
     memory: true
     disk: /
+    cacheMemory: false
+    label: lxc-infra
+
+- glances:
+    url: http://10.0.0.10:61208
+    cpu: true
+    mem: true
+    disk: /
+    diskUnits: bytes
+    label: theseus
 
 - search:
     provider: google
     target: _blank
 
-- glances:
-    url: http://10.0.0.101:61208
-    cpu: true
-    mem: true
-    disk: /
-    label: theseus
+- datetime:
+    text_size: xl
+    format:
+      timeStyle: short
+      dateStyle: short
+      hourCycle: h23
