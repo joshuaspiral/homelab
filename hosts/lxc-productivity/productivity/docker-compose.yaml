@@ -149,3 +149,12 @@ services:
           limits:
             cpus: '0.5'
             memory: 256M
+
+  it-tools:
+    image: corentinth/it-tools:latest
+    container_name: it-tools
+    restart: unless-stopped
+    networks:
+      - infra
+    ports:
+      - 8080:80
