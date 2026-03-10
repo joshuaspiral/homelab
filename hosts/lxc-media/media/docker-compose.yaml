@@ -150,7 +150,7 @@ services:
     restart: unless-stopped
     network_mode: service:gluetun   # all traffic through gluetun
     volumes:
-      - ./qbitorrent/config:/config
+      - ./qbittorrent/config:/config
       - /mnt/downloads:/downloads
     environment:
       - PUID=1000
@@ -166,5 +166,18 @@ services:
       - media
     ports:
       - 8191:8191
+    environment:
+      - TZ=America/Toronto
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    restart: unless-stopped
+    networks:
+      - media
+    ports:
+      - 5055:5055
+    volumes:
+      - ./jellyseerr/config:/app/config
     environment:
       - TZ=America/Toronto
