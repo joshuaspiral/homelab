@@ -1,0 +1,208 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.75in]{geometry}
+
+\title{CSC111 Winter 2026 Project 1}
+\author{Catherine Abdul-Samad and Joshua Yeung}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Running the game}
+No extra libraries are required beyond the standard Python 3.13.5 library.
+
+\section*{Game Map}
+Example game map below:
+\begin{verbatim}
+-1 -1  3  4
+ 7  1  2  5
+-1 -1 -1  6
+\end{verbatim}
+
+Starting location is: 1
+
+\section*{Game solution}
+List of commands:
+\begin{enumerate}
+    \item take fob
+    \item go west
+    \item take wallet
+    \item go east
+    \item go east
+    \item go east
+    \item go north
+    \item take passport
+    \item go south
+    \item go south
+    \item buy tcard
+    \item drop wallet
+    \item drop passport
+    \item go north
+    \item go west
+    \item go north
+    \item take usb drive
+    \item take laptop charger
+    \item go east
+    \item drop usb drive
+    \item drop laptop charger
+    \item go south
+    \item take lucky mug
+    \item go north
+    \item drop lucky mug
+\end{enumerate}
+
+\section*{Lose condition(s)}
+Description of how to lose the game: The player loses if they run out of moves before returning all required items to the target location.
+
+List of commands (abbreviated):
+\begin{verbatim}
+["go east", "go west"] * 25
+\end{verbatim}
+
+Which parts of your code are involved in this functionality: 
+
+\texttt{adventure.py}: \texttt{AdventureGame.check\_lose\_condition} checks if \texttt{self.moves >= self.max\_moves}. Calls to movement commands increment \texttt{self.moves}.
+
+\section*{Inventory}
+\begin{enumerate}
+    \item All location IDs that involve items in the game: 
+    
+    Locations: 1 (Fob), 3 (USB Drive, Laptop Charger), 4 (Passport), 5 (Lucky Mug), 6 (T-Card), 7 (Wallet).
+    
+    \item Item data:
+    \begin{enumerate}
+        \item For Item 1 (Fob):
+        \begin{itemize}
+            \item Item name: fob
+            \item Item start location ID: 1
+            \item Item target location ID: 4
+        \end{itemize}
+        
+        \item For Item 2 (USB Drive):
+        \begin{itemize}
+            \item Item name: usb drive
+            \item Item start location ID: 3
+            \item Item target location ID: 4
+        \end{itemize}
+        
+        \item For Item 3 (Laptop Charger):
+        \begin{itemize}
+            \item Item name: laptop charger
+            \item Item start location ID: 3
+            \item Item target location ID: 4
+        \end{itemize}
+        
+        \item For Item 4 (Passport):
+        \begin{itemize}
+            \item Item name: passport
+            \item Item start location ID: 4
+            \item Item target location ID: 6
+        \end{itemize}
+        
+        \item For Item 5 (Lucky Mug):
+        \begin{itemize}
+            \item Item name: lucky mug
+            \item Item start location ID: 5
+            \item Item target location ID: 4
+        \end{itemize}
+        
+        \item For Item 6 (T-Card):
+        \begin{itemize}
+            \item Item name: tcard
+            \item Item start location ID: 6
+            \item Item target location ID: 3
+        \end{itemize}
+        
+        \item For Item 7 (Wallet):
+        \begin{itemize}
+            \item Item name: wallet
+            \item Item start location ID: 7
+            \item Item target location ID: 6
+        \end{itemize}
+    \end{enumerate}
+    
+    \item Exact command(s) that should be used to pick up an item, and the command(s) used to use/drop the item:
+\begin{verbatim}
+take fob
+inventory
+drop fob
+\end{verbatim}
+    
+    \item Which parts of your code (file, class, function/method) are involved in handling the \texttt{inventory} command: 
+    
+    \texttt{adventure.py}: \texttt{AdventureGame.\_handle\_inventory} displays the list. \texttt{AdventureGame.\_grab\_item} adds to inventory. \texttt{AdventureGame.\_handle\_drop} drops items.
+\end{enumerate}
+
+\section*{Score}
+\begin{enumerate}
+    \item Briefly describe the way players can earn score in your game. Include the first location in which they can increase their score, and the exact list of command(s) leading up to the score increase: 
+    
+    Players earn points by picking up items (5 points per distinct item type) and depositing them in their target location (variable points, e.g., 20 for USB drive). Items such as the Fob, Passport, and Wallet have no score value. 
+    
+    First location to score: 1 (Bahen 1F). 
+    
+    Commands: \texttt{take fob}.
+    
+    \item Copy the list you assigned to \texttt{scores\_demo} in the \texttt{simulation.py} file into this section of the report:
+\begin{verbatim}
+scores_demo = ["take fob", "score"]
+\end{verbatim}
+    
+    \item Which parts of your code (file, class, function/method) are involved in handling the \texttt{score} functionality: 
+    
+    \texttt{adventure.py}: \texttt{AdventureGame.score} attribute, updated in \texttt{\_grab\_item} and \texttt{\_handle\_drop}. Displayed in \texttt{\_handle\_score}.
+\end{enumerate}
+
+\section*{Enhancements}
+\begin{enumerate}
+    \item \textbf{Locked Rooms System}
+    \begin{itemize}
+        \item Brief description: Certain locations (Morrison Hall, Robarts Library) are restricted. Players must possess specific items (Fob, T-Card) to enter.
+        \item Complexity level: Medium
+        \item Reasons: Required extending the \texttt{Location} entity with locking and item requirements, and modifying \texttt{\_handle\_go} to prevent unauthorized movement.
+        \item Code involved: \texttt{adventure.py} (\texttt{\_handle\_go}), \texttt{game\_entities.py} (\texttt{Location}, \texttt{Item}).
+        \item Demo: \texttt{simple\_enhancement\_demo} in \texttt{simulation.py}.
+    \end{itemize}
+    
+    \item \textbf{Purchasing System}
+    \begin{itemize}
+        \item Brief description: Implemented a \texttt{buy} command to acquire items using other items (buying a T-Card requires a Wallet and Passport).
+        \item Complexity level: Low
+        \item Reasons: Implemented the \texttt{buy} verb with requirement checks and weight enforcement.
+        \item Code involved: \texttt{adventure.py} (\texttt{\_handle\_buy}), \texttt{game\_data.json} (\texttt{required\_items}).
+        \item Commands: \texttt{buy tcard}
+    \end{itemize}
+    
+    \item \textbf{Colored Terminal Interface}
+    \begin{itemize}
+        \item Brief description: Added ANSI color coding to make the interface more readable and visually appealing. Different colors represent locations, items, commands.
+        \item Complexity level: Low
+        \item Reasons: Used various ANSI escape codes to improve the user experience.
+        \item Code involved: \texttt{adventure.py} (Constants).
+    \end{itemize}
+    
+    \item \textbf{Map Display}
+    \begin{itemize}
+        \item Brief description: Added a \texttt{read} command to display a map board. Players can view a grid-based map of the campus.
+        \item Complexity level: Low
+        \item Reasons: Added a Map class that holds grid data and location keys, and added the \texttt{read map} command to display it.
+        \item Code involved: \texttt{adventure.py} (\texttt{\_handle\_read}), \texttt{game\_entities.py} (\texttt{Map}).
+        \item Commands: \texttt{read map}
+    \end{itemize}
+    
+    \item \textbf{Help Command}
+    \begin{itemize}
+        \item Brief description: Added a \texttt{help} command to display a comprehensive help menu that provides a listing of all available game verbs and their usage.
+        \item Complexity level: Low
+        \item Reasons: Required mapping all registered command handlers to a help menu, ensuring players can discover all game features easily.
+        \item Code involved: \texttt{adventure.py} (\texttt{\_handle\_help}).
+        \item Commands: \texttt{help}
+    \end{itemize}
+\end{enumerate}
+
+\end{document}
