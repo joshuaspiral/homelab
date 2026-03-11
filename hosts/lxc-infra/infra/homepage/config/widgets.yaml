@@ -5,6 +5,7 @@
     disk: /
     diskUnits: bytes
     label: theseus
+    version: 4
 
 - search:
     provider: google
