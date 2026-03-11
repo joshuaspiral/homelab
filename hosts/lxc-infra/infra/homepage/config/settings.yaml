@@ -1,8 +1,7 @@
 ---
 title: Homelab
 theme: dark
-color: slate
-background: "#282828"
+color: stone
 layout:
   Infrastructure:
     style: row

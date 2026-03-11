@@ -24,11 +24,11 @@
     - Wake Hyperion:
         href: http://10.0.0.101:9000/hooks/wake-hyperion
         description: Send WOL packet
-        icon: power.svg
+        icon: mdi-power
     - Sleep Hyperion:
         href: http://10.0.0.101:9000/hooks/sleep-hyperion
         description: Shutdown GPU server
-        icon: sleep.svg
+        icon: mdi-power-sleep
 
 - Productivity:
     - Paperless:
@@ -46,7 +46,7 @@
     - Baikal:
         href: https://dav.joshuaspiral.xyz
         description: CalDAV/CardDAV
-        icon: caldav.svg
+        icon: mdi-calendar-sync
     - Actual Budget:
         href: https://money.joshuaspiral.xyz
         description: Personal finance
