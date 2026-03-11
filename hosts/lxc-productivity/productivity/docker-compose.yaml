@@ -140,16 +140,18 @@ services:
         - productivity
       ports:
         - 7681:7681
-      volumes:
-        - ./csc111p1:/app:ro
       working_dir: /app
-      command: sh -c "apk add --no-cache python3 && ttyd -p 7681 -W -u 1000 -g 1000 python3 adventure.py"
+      command: >
+        # install git and python3 in alpine container
+        sh -c "apk add --no-cache python3 git &&
+        # check for changes, clone repo
+        ([ -d .git ] && git pull || git clone https://github.com/joshuaspiral/csc111p1 .) &&
+        ttyd -p 7681 -W -u 1000 -g 1000 python3 adventure.py"
       deploy:
         resources:
           limits:
             cpus: '0.5'
             memory: 256M
-
   it-tools:
     image: corentinth/it-tools:latest
     container_name: it-tools
