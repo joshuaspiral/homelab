@@ -41,6 +41,20 @@ services:
       - HOMEPAGE_VAR_NAVIDROME_SALT=${HOMEPAGE_VAR_NAVIDROME_SALT}
       - HOMEPAGE_VAR_QBIT_USER=${HOMEPAGE_VAR_QBIT_USER}
 
+webhook:
+    build: ./webhook
+    container_name: webhook
+    restart: unless-stopped
+    networks:
+      - infra
+    ports:
+      - 9000:9000
+    volumes:
+      - ./webhook/hooks.yaml:/etc/webhook/hooks.yaml:ro
+      - ../../../scripts:/scripts:ro
+      - /root/.ssh:/root/.ssh:ro
+    command: -verbose -hooks=/etc/webhook/hooks.yaml -hotreload
+
   uptime-kuma:
     image: louislam/uptime-kuma:latest
     container_name: uptime-kuma

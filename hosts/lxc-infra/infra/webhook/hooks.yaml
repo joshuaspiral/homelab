@@ -1,0 +1,4 @@
+- id: wake-hyperion
+  execute-command: "/scripts/wake-hyperion"
+- id: sleep-hyperion
+  execute-command: "/scripts/sleep-hyperion"
