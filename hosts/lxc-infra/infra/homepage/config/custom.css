@@ -1,0 +1,41 @@
+:root {
+  --gruvbox-bg: #282828;
+  --gruvbox-bg-soft: #32302f;
+  --gruvbox-bg-hover: #3c3836;
+  --gruvbox-fg: #ebdbb2;
+  --gruvbox-muted: #a89984;
+  --gruvbox-border: #504945;
+}
+
+body {
+  background: var(--gruvbox-bg) !important;
+  background-image: none !important;
+  color: var(--gruvbox-fg) !important;
+}
+
+div.bg-white\/5 {
+  background-color: var(--gruvbox-bg-soft) !important;
+  border: 1px solid var(--gruvbox-border) !important;
+  border-radius: 4px !important;
+}
+
+div.hover\:bg-white\/10:hover {
+  background-color: var(--gruvbox-bg-hover) !important;
+}
+
+p.text-gray-400,
+span.text-gray-400,
+div.text-gray-400,
+.text-slate-500 {
+  color: var(--gruvbox-muted) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.text-white {
+  color: var(--gruvbox-fg) !important;
+}
