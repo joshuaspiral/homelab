@@ -28,12 +28,11 @@ services:
       - PAPERLESS_SECRET_KEY=${PAPERLESS_SECRET_KEY}
       - PAPERLESS_ADMIN_USER=${PAPERLESS_ADMIN_USER}
       - PAPERLESS_ADMIN_PASSWORD=${PAPERLESS_ADMIN_PASSWORD}
-      - PAPERLESS_URL=https://paperless.joshuaspiral.xyz
+      - PAPERLESS_URL=${PAPERLESS_URL}
       - PAPERLESS_OCR_LANGUAGE=eng
       - PAPERLESS_OCR_MODE=skip_noarchive  # don't re-OCR docs that already have text layer
       - PAPERLESS_CONSUMER_POLLING=60       # check consume folder every 60s
-      - PAPERLESS_POST_CONSUME_SCRIPT=/scripts/ollama_ocr.py
-      - OLLAMA_API_URL=http://10.0.0.20:11434/api/generate # hyperion ip
+      - PAPERLESS_POST_CONSUME_SCRIPT=/scripts/chandra_ocr.py
       - PAPERLESS_API_URL=http://localhost:8000/api/documents/
       - PAPERLESS_API_TOKEN=${PAPERLESS_API_TOKEN}
       - TZ=America/Toronto
