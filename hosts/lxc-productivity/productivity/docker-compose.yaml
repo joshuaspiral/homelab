@@ -35,6 +35,8 @@ services:
       - PAPERLESS_POST_CONSUME_SCRIPT=/scripts/chandra_ocr.py
       - PAPERLESS_API_URL=http://localhost:8000/api/documents/
       - PAPERLESS_API_TOKEN=${PAPERLESS_API_TOKEN}
+      - PAPERLESS_URL=https://paperless.joshuaspiral.xyz
+      - PAPERLESS_CSRF_TRUSTED_ORIGINS=https://paperless.joshuaspiral.xyz
       - TZ=America/Toronto
     depends_on:
       - paperless-redis
@@ -59,6 +61,22 @@ services:
       - POSTGRES_DB=${PAPERLESS_DBNAME}
       - POSTGRES_USER=${PAPERLESS_DBUSER}
       - POSTGRES_PASSWORD=${PAPERLESS_DBPASS}
+
+  # all this for paperless!!!
+  chandra-webhook:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    container_name: chandra-webhook
+    restart: unless-stopped
+    networks:
+      - productivity
+    volumes:
+      - ./scripts:/scripts
+    env_file:
+      - .env
+    environment:
+      # Use internal Docker networking to bypass the reverse proxy CSRF checks entirely
+      - PAPERLESS_API_URL=http://paperless-ngx:8000/api/documents/
+    entrypoint: python3 /scripts/webhook_listener.py
 
   vaultwarden:
     image: vaultwarden/server:latest
@@ -131,26 +149,25 @@ services:
       start_period: 20s
     restart: unless-stopped
 
-  csc111-demo:
-      image: tsl0922/ttyd:alpine
-      container_name: csc111-demo
-      restart: unless-stopped
-      networks:
-        - productivity
-      ports:
-        - 7681:7681
-      working_dir: /app
-      command: >
-        # install git and python3 in alpine container
-        sh -c "apk add --no-cache python3 git &&
-        # check for changes, clone repo
-        ([ -d .git ] && git pull || git clone https://github.com/joshuaspiral/csc111p1 .) &&
-        ttyd -p 7681 -W -u 1000 -g 1000 python3 adventure.py"
-      deploy:
+csc111-demo:
+    image: tsl0922/ttyd:alpine
+    container_name: csc111-demo
+    restart: unless-stopped
+    networks:
+      - productivity
+    ports:
+      - 7681:7681
+    working_dir: /app
+    command: >
+      sh -c "apk add --no-cache python3 git &&
+      ([ -d .git ] && git pull || git clone https://github.com/joshuaspiral/csc111p1 .) &&
+      ttyd -p 7681 -W -u 1000 -g 1000 python3 adventure.py"
+    deploy:
         resources:
           limits:
             cpus: '0.5'
             memory: 256M
+
   it-tools:
     image: corentinth/it-tools:latest
     container_name: it-tools
