@@ -2,7 +2,7 @@
 This is for my Homelab setup.
 
 **theseus** is the main node (Lenovo M720q, 1TB NVMe) running Proxmox with 5 LXCs.
-**hyperion** is a Fedora Workstation GPU machine on the desk — only on when needed for OCR or LLM stuff.
+**hyperion** is a Fedora Workstation desktop machine with a GPU for local LLM.
 
 # **theseus** 
 ## LXCs

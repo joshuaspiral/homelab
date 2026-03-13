@@ -12,12 +12,12 @@
           url: http://10.0.0.101:3001
           slug: homelab
     - Open WebUI:
-        href: https://ai.joshuaspiral.xyz
+        href: http://10.0.0.20:3000
         description: LLM Interface
         icon: open-webui.svg
         ping: 10.0.0.20
     - Hyperion:
-        href: http://10.0.0.20:11434
+        href: http://10.0.0.20:9090
         description: GPU server
         icon: nvidia.svg
         ping: 10.0.0.20
@@ -55,10 +55,6 @@
         href: https://tools.joshuaspiral.xyz
         description: Developer Tools
         icon: it-tools.svg
-    - CSC111 Demo:
-        href: https://csc111p1.joshuaspiral.xyz
-        description: Python Adventure
-        icon: terminal.svg
 
 - Photos & Media:
     - Immich:
@@ -90,4 +86,52 @@
           salt: {{HOMEPAGE_VAR_NAVIDROME_SALT}}
     - Jellyseerr:
         href: https://requests.joshuaspiral.xyz
-        description: Media Requests
+        description: Media requests
+        icon: jellyseerr.svg
+
+- Downloads:
+    - Sonarr:
+        href: http://10.0.0.105:8989
+        description: TV shows
+        icon: sonarr.svg
+        widget:
+          type: sonarr
+          url: http://10.0.0.105:8989
+          key: {{HOMEPAGE_VAR_SONARR_API_KEY}}
+    - Radarr:
+        href: http://10.0.0.105:7878
+        description: Movies
+        icon: radarr.svg
+        widget:
+          type: radarr
+          url: http://10.0.0.105:7878
+          key: {{HOMEPAGE_VAR_RADARR_API_KEY}}
+    - Lidarr:
+        href: http://10.0.0.105:8686
+        description: Music
+        icon: lidarr.svg
+        widget:
+          type: lidarr
+          url: http://10.0.0.105:8686
+          key: {{HOMEPAGE_VAR_LIDARR_API_KEY}}
+    - Prowlarr:
+        href: http://10.0.0.105:9696
+        description: Indexer manager
+        icon: prowlarr.svg
+        widget:
+          type: prowlarr
+          url: http://10.0.0.105:9696
+          key: {{HOMEPAGE_VAR_PROWLARR_API_KEY}}
+    - qBittorrent:
+        href: http://10.0.0.105:8080
+        description: Torrent client
+        icon: qbittorrent.svg
+        widget:
+          type: qbittorrent
+          url: http://10.0.0.105:8080
+          username: {{HOMEPAGE_VAR_QBIT_USER}}
+          password: {{HOMEPAGE_VAR_QBIT_PASS}}
+    - slskd:
+        href: http://10.0.0.105:5030
+        description: Soulseek client
+        icon: slskd.png
