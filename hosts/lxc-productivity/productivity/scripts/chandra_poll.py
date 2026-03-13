@@ -70,7 +70,14 @@ def poll():
 
 
 if __name__ == "__main__":
-    print("Starting Chandra OCR polling service (5m intervals)...", flush=True)
+    print("Starting Chandra OCR polling service...", flush=True)
     while True:
-        poll()
-        time.sleep(300)
+        try:
+            poll()
+            time.sleep(300)
+        except requests.exceptions.ConnectionError:
+            print("Paperless-ngx not reachable yet. Retrying in 10s...", flush=True)
+            time.sleep(10)
+        except Exception as e:
+            print(f"Error: {e}", flush=True)
+            time.sleep(300)
