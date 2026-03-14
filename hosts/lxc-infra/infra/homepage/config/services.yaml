@@ -58,7 +58,7 @@
 
 - Photos & Media:
     - Immich:
-        href: https://immich.joshuaspiral.xyz
+        href: http://10.0.0.104:2283
         description: Photo library
         icon: immich.svg
         widget:
@@ -67,7 +67,7 @@
           key: {{HOMEPAGE_VAR_IMMICH_API_KEY}}
           version: 2
     - Jellyfin:
-        href: https://jellyfin.joshuaspiral.xyz
+        href: http://10.0.0.105:8096
         description: Media server
         icon: jellyfin.svg
         widget:
