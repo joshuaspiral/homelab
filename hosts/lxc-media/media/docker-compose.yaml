@@ -105,6 +105,21 @@ services:
       - PGID=1000
       - TZ=America/Toronto
 
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - /opt/bazarr/config:/config
+      - /mnt/media/movies:/movies
+      - /mnt/media/tv:/tv
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+
   slskd:
     image: slskd/slskd:latest
     container_name: slskd
