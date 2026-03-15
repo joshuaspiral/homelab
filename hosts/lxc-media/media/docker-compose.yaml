@@ -139,6 +139,17 @@ services:
       - SLSKD_SLSK_USERNAME=
       - SLSKD_SLSK_PASSWORD=${SLSKD_PASSWORD}
 
+  beets:
+    image: lscr.io/linuxserver/beets:latest
+    container_name: beets
+    volumes:
+      - ./beets/config:/config
+      - /mnt/music:/music
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+
   gluetun:
     image: qmcgaw/gluetun:latest
     container_name: gluetun
