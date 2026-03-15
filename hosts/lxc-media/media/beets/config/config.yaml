@@ -1,0 +1,24 @@
+directory: /music/library
+library: /config/library.db
+
+import:
+  move: yes
+  write: yes
+  timid: no
+  log: /config/import.log
+
+plugins: fetchart embedart
+
+fetchart:
+  auto: yes
+  sources: coverart itunes amazon wikipedia
+
+embedart:
+  auto: yes
+  maxwidth: 1200
+
+match:
+  strong_rec_thresh: 0.1
+
+ui:
+  color: yes
