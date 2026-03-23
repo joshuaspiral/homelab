@@ -1,0 +1,6 @@
+{
+  "server": {
+    "url": "wss://irc.joshuaspiral.xyz",
+    "autojoin": "#general"
+  }
+}

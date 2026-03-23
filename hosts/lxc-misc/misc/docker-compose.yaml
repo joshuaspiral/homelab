@@ -1,7 +1,6 @@
 networks:
   misc:
     driver: bridge
-
 services:
   ergo:
     image: ghcr.io/ergochat/ergo:stable
@@ -14,6 +13,17 @@ services:
       - "8080:8080"
     volumes:
       - ./ergo/config:/ircd
+
+  gamja:
+    image: ghcr.io/emersion/gamja:latest
+    container_name: gamja
+    restart: unless-stopped
+    networks:
+      - misc
+    ports:
+      - "8081:80"
+    volumes:
+      - ./gamja/config.json:/var/www/html/config.json:ro
 
   csc111-demo:
     image: tsl0922/ttyd:alpine
@@ -33,4 +43,3 @@ services:
         limits:
           cpus: '0.5'
           memory: 256M
-
