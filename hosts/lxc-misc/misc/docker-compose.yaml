@@ -14,17 +14,6 @@ services:
     volumes:
       - ./ergo/config:/ircd
 
-  gamja:
-    image: ghcr.io/emersion/gamja:latest
-    container_name: gamja
-    restart: unless-stopped
-    networks:
-      - misc
-    ports:
-      - "8081:80"
-    volumes:
-      - ./gamja/config.json:/var/www/html/config.json:ro
-
   csc111-demo:
     image: tsl0922/ttyd:alpine
     container_name: csc111-demo
