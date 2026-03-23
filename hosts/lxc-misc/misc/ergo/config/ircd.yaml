@@ -1,7 +1,18 @@
 network:
-  name: "Homelab IRC"
+  name: "UofT Open Source Club IRC Server"
 server:
   name: "irc.joshuaspiral.xyz"
-  listen:
-    - "0.0.0.0:6667"
-    - "ws://0.0.0.0:8080"
+  enforce-utf8: true
+  max-sendq: 5M
+  listeners:
+    "0.0.0.0:6667":
+    "0.0.0.0:8080":
+      websocket: true
+datastore:
+  path: "/ircd/ircd.db"
+limits:
+  nicklen: 32
+  channellen: 64
+  awaylen: 390
+  kicklen: 390
+  topiclen: 390
