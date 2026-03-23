@@ -1,0 +1,16 @@
+networks:
+  misc:
+    driver: bridge
+
+services:
+  ergo:
+    image: ghcr.io/ergochat/ergo:stable
+    container_name: ergo
+    restart: unless-stopped
+    networks:
+      - misc
+    ports:
+      - "6667:6667"
+      - "8080:8080"
+    volumes:
+      - ./ergo/config:/ircd

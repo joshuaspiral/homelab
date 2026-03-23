@@ -1,0 +1,7 @@
+network:
+  name: "Homelab IRC"
+server:
+  name: "irc.joshuaspiral.xyz"
+  listen:
+    - "0.0.0.0:6667"
+    - "ws://0.0.0.0:8080"
