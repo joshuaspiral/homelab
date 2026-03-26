@@ -7,7 +7,12 @@ import:
   timid: no
   log: /config/import.log
 
-plugins: fetchart embedart
+plugins: fetchart embedart duplicates
+
+duplicates:
+  album: yes
+  tiebreak:
+    items: descending
 
 fetchart:
   auto: yes
