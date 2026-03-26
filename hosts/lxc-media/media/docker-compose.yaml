@@ -17,7 +17,9 @@ services:
       - /mnt/media:/media:ro        # read-only for jellyfin
       - /mnt/music:/music:ro
     devices:
-      - /dev/dri:/dev/dri           # iGPU passthrough for QuickSync transcoding
+      - /dev/dri/renderD128:/dev/dri/renderD128
+      - /dev/dri/card0:/dev/dri/card0
+
     environment:
       - TZ=America/Toronto
 
@@ -168,7 +170,7 @@ gluetun:
     network_mode: service:gluetun
     volumes:
       - ./slskd/config:/app/config
-      - /mnt/downloads:/app/downloads
+      - /mnt/downloads/slsk:/app/downloads
       - /mnt/music:/app/music
     environment:
       - SLSKD_REMOTE_CONFIGURATION=true
