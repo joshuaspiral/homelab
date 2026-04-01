@@ -1,7 +1,7 @@
 ---
 title: Homelab
 theme: dark
-color: stone
+color: slate
 layout:
   Infrastructure:
     style: row
@@ -14,7 +14,7 @@ layout:
     columns: 4
   Downloads:
     style: row
-    columns: 3
-  Storage:
+    columns: 4
+  Misc:
     style: row
     columns: 3

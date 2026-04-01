@@ -4,7 +4,14 @@
     mem: true
     disk: /
     diskUnits: bytes
-    label: theseus
+    label: theseus (NVMe)
+    version: 4
+
+- glances:
+    url: http://10.0.0.10:61208
+    disk: /mnt/external
+    diskUnits: bytes
+    label: Seagate 5TB External HDD
     version: 4
 
 - search:

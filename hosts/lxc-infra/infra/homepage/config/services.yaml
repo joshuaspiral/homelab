@@ -135,3 +135,17 @@
         href: http://10.0.0.105:5030
         description: Soulseek client
         icon: slskd.png
+    - Bazarr:
+            href: http://10.0.0.105:6767
+            description: Subtitle manager
+            icon: bazarr.svg
+            widget:
+              type: bazarr
+              url: http://10.0.0.105:6767
+              key: {{HOMEPAGE_VAR_BAZARR_API_KEY}}
+
+- Misc:
+    - Ergo Chat:
+        href: http://10.0.0.106:8080
+        description: IRC Web Socket
+        icon: irc.svg
