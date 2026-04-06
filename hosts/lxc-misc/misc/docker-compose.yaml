@@ -14,18 +14,15 @@ services:
     volumes:
       - ./ergo/config:/ircd
 
-syncthing:
-  image: syncthing/syncthing:latest
-  container_name: syncthing
-  restart: unless-stopped
-  networks:
-    - misc
-  ports:
-    - 8384:8384   # WebUI
-    - 22000:22000 # Sync protocol
-  volumes:
-    - ./syncthing/config:/var/syncthing/config
-    - /mnt/org:/var/syncthing/org
-  environment:
-    - PUID=1000
-    - PGID=1000
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Toronto
+    volumes:
+      - ./syncthing/config:/config
+      - /mnt/org:/var/syncthing/org
+    environment:
+      - PUID=1000
+      - PGID=1000
